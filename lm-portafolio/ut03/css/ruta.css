@@ -1,0 +1,36 @@
+body { font-family: Arial, sans-serif; margin: 0; color: #222; line-height: 1.6; background: #fff; }
+img, video { max-width: 100%; height: auto; display: block; }
+
+.saltar { position: absolute; left: 8px; top: -60px; background: #14324A; color: #fff; padding: 8px 16px; z-index: 10; }
+.saltar:focus { top: 8px; }
+
+.cabecera { background: #14324A; color: #fff; padding: 16px; }
+.marca { margin: 0; font-weight: bold; font-size: 20px; }
+.cabecera ul { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 16px; }
+.cabecera a { color: #fff; }
+.cabecera a[aria-current="page"] { font-weight: bold; text-decoration-thickness: 3px; }
+
+main { max-width: 900px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 32px; margin: 0 0 8px; }
+h2 { font-size: 24px; margin: 32px 0 8px; }
+main img { width: 600px; }
+
+.tabla { border-collapse: collapse; width: 100%; }
+.tabla caption { text-align: left; font-weight: bold; padding-bottom: 8px; }
+.tabla th, .tabla td { border: 1px solid #555; padding: 6px 10px; text-align: left; }
+.tabla thead th { background: #14324A; color: #fff; }
+.tabla tfoot td { font-size: 14px; color: #444; }
+
+figure { margin: 0; }
+figcaption { font-size: 14px; color: #444; }
+
+.lateral { background: #E8F1F7; padding: 16px; margin-top: 32px; }
+.lateral label { display: block; }
+.lateral input { padding: 6px; border: 1px solid #555; width: min(320px, 100%); }
+.boton { background: #14324A; color: #fff; border: none; padding: 10px 18px; font-size: 16px; cursor: pointer; }
+
+a:focus-visible, input:focus-visible, button:focus-visible, video:focus-visible { outline: 3px solid #B3261E; outline-offset: 2px; }
+.cabecera a:focus-visible, .saltar:focus-visible, .pie a:focus-visible { outline-color: #FFD25A; }
+
+.pie { background: #14324A; color: #fff; padding: 12px 16px; font-size: 14px; }
+.pie p { margin: 0; }
