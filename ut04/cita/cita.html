@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cita en el taller · BiciRuta</title>
+  <link rel="stylesheet" href="css/cita.css">
+  <!-- El script se ejecuta cuando el HTML ya está cargado (defer) -->
+  <script src="js/cita.js" defer></script>
+</head>
+<body>
+
+  <header class="barra">
+    <a href="cita.html" class="barra__logo">
+      <img src="img/logo_biciruta.png" alt="BiciRuta, inicio" width="320" height="80">
+    </a>
+    <!-- Buscador de la tienda: método GET.
+         Es una consulta que no cambia nada y la URL resultante
+         (receptor.html?q=...) se puede guardar o compartir. -->
+    <form class="busqueda" role="search" action="receptor.html" method="get">
+      <label for="q" class="oculto">Buscar productos</label>
+      <input type="search" id="q" name="q" placeholder="Buscar productos…">
+      <button type="submit">Buscar</button>
+    </form>
+  </header>
+
+  <main class="tarjeta">
+    <h1>Reserva tu cita en el taller</h1>
+    <p class="nota">Rellena los cuatro pasos. Lo marcado con <abbr title="obligatorio" class="req">*</abbr> es obligatorio.</p>
+
+    <!-- Cita: método POST con multipart/form-data.
+         Lleva datos personales y contraseña (no deben ir en la URL)
+         y un fichero adjunto (la foto), que solo se puede enviar así. -->
+    <form id="form-cita" action="https://httpbin.org/post" method="post" enctype="multipart/form-data">
+
+      <!-- ===== Paso 1 · Contacto ===== -->
+      <fieldset class="paso">
+        <legend>Paso 1 · Tus datos de contacto</legend>
+
+        <label for="nombre">Nombre y apellidos <abbr title="obligatorio" class="req">*</abbr></label>
+        <input type="text" id="nombre" name="nombre" autocomplete="name"
+               required minlength="3" maxlength="80">
+
+        <label for="dni">DNI <abbr title="obligatorio" class="req">*</abbr></label>
+        <input type="text" id="dni" name="dni" aria-describedby="dni-ayuda"
+               required pattern="[0-9]{8}[A-Za-z]"
+               title="Formato: 8 números seguidos de una letra (ej. 87654321X)">
+        <p id="dni-ayuda" class="ayuda">8 números y la letra, sin espacios ni guiones.</p>
+
+        <label for="email">Correo electrónico <abbr title="obligatorio" class="req">*</abbr></label>
+        <input type="email" id="email" name="email" autocomplete="email" required>
+
+        <label for="movil">Móvil <abbr title="obligatorio" class="req">*</abbr></label>
+        <input type="tel" id="movil" name="movil" autocomplete="tel" aria-describedby="movil-ayuda"
+               required pattern="[67][0-9]{8}"
+               title="Formato: 9 números y el primero debe ser 6 o 7 (ej. 698765432)">
+        <p id="movil-ayuda" class="ayuda">Solo móviles: 9 números que empiezan por 6 o 7.</p>
+      </fieldset>
+
+      <!-- ===== Paso 2 · Bicicleta y fecha ===== -->
+      <fieldset class="paso">
+        <legend>Paso 2 · Tu bicicleta y el día</legend>
+
+        <label for="bici">Tipo de bicicleta <abbr title="obligatorio" class="req">*</abbr></label>
+        <select id="bici" name="bici" required>
+          <option value="">— Elige una opción —</option>
+          <option value="urbana">Urbana</option>
+          <option value="montana">Montaña</option>
+          <option value="electrica">Eléctrica</option>
+        </select>
+
+        <label for="km">Kilómetros desde la última revisión</label>
+        <input type="number" id="km" name="km" aria-describedby="km-ayuda"
+               min="0" max="50000" step="100">
+        <p id="km-ayuda" class="ayuda">Redondea a centenas: 0, 100, 200… hasta 50 000.</p>
+
+        <label for="fecha">Día de la cita <abbr title="obligatorio" class="req">*</abbr></label>
+        <input type="date" id="fecha" name="fecha" aria-describedby="fecha-ayuda" required>
+        <p id="fecha-ayuda" class="ayuda">Desde mañana, de lunes a sábado (los domingos cerramos).</p>
+      </fieldset>
+
+      <!-- ===== Paso 3 · Servicio y avería ===== -->
+      <fieldset class="paso">
+        <legend>Paso 3 · Qué necesitas</legend>
+
+        <!-- Los tres radios comparten name="servicio": solo se puede marcar uno -->
+        <fieldset class="opciones">
+          <legend>Servicio <abbr title="obligatorio" class="req">*</abbr></legend>
+          <label class="opcion" for="srv-basica"><input type="radio" id="srv-basica" name="servicio" value="revision-basica" required> Revisión básica</label>
+          <label class="opcion" for="srv-completa"><input type="radio" id="srv-completa" name="servicio" value="revision-completa"> Revisión completa</label>
+          <label class="opcion" for="srv-reparacion"><input type="radio" id="srv-reparacion" name="servicio" value="reparacion"> Reparación</label>
+        </fieldset>
+
+        <fieldset class="opciones">
+          <legend>Extras</legend>
+          <label class="opcion" for="ext-lavado"><input type="checkbox" id="ext-lavado" name="extra" value="lavado"> Lavado completo (+6 €)</label>
+          <label class="opcion" for="ext-recogida"><input type="checkbox" id="ext-recogida" name="extra" value="recogida"> Recogida en casa</label>
+        </fieldset>
+
+        <label for="descripcion">Describe la avería <abbr title="obligatorio" class="req">*</abbr></label>
+        <textarea id="descripcion" name="descripcion" rows="4" aria-describedby="descripcion-ayuda contador"
+                  required minlength="20" maxlength="500"></textarea>
+        <p class="ayuda fila">
+          <span id="descripcion-ayuda">Mínimo 20 caracteres.</span>
+          <span id="contador">0 / 500 caracteres</span>
+        </p>
+
+        <label for="imagen">Foto de la avería (opcional)</label>
+        <input type="file" id="imagen" name="imagen" accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+               aria-describedby="imagen-ayuda">
+        <p id="imagen-ayuda" class="ayuda">Formatos admitidos: JPG o PNG.</p>
+      </fieldset>
+
+      <!-- ===== Paso 4 · Seguimiento online ===== -->
+      <fieldset class="paso">
+        <legend>Paso 4 · Seguimiento online</legend>
+
+        <label class="opcion" for="quiero-cuenta">
+          <input type="checkbox" id="quiero-cuenta" name="quiero_cuenta" value="si">
+          Quiero una cuenta para ver el estado de la reparación
+        </label>
+
+        <!-- Empieza deshabilitado: sus campos ni se validan ni se envían
+             hasta que cita.js lo activa al marcar la casilla -->
+        <fieldset id="bloque-cuenta" class="opciones" disabled>
+          <legend>Datos de acceso</legend>
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" autocomplete="new-password"
+                 aria-describedby="password-ayuda" required
+                 pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,}"
+                 title="Al menos 8 caracteres, con letras y números">
+          <p id="password-ayuda" class="ayuda">8 caracteres o más, mezclando letras y números.</p>
+
+          <label for="password2">Repite la contraseña</label>
+          <input type="password" id="password2" name="password2" autocomplete="new-password" required>
+        </fieldset>
+
+        <label class="opcion" for="acepto">
+          <input type="checkbox" id="acepto" name="acepto" value="si" required>
+          Acepto la política de privacidad <abbr title="obligatorio" class="req">*</abbr>
+        </label>
+      </fieldset>
+
+      <!-- Ampliación · Honeypot: campo invisible para las personas.
+           Un robot de spam rellena todos los campos que encuentra en el código;
+           si «empresa» llega con texto, el servidor sabe que no es una persona. -->
+      <p class="trampa" aria-hidden="true">
+        <label for="empresa">Empresa (no rellenar)</label>
+        <input type="text" id="empresa" name="empresa" tabindex="-1" autocomplete="off">
+      </p>
+
+      <button type="submit" class="enviar">Reservar cita</button>
+    </form>
+  </main>
+
+  <footer class="pie">BiciRuta S.L. · Taller de bicicletas</footer>
+</body>
+</html>

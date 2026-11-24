@@ -1,0 +1,157 @@
+/* cita.css · Estilos del formulario de cita de BiciRuta */
+
+:root {
+  --azul: #0f3d5c;
+  --naranja: #e8833a;
+  --fondo: #eef2f5;
+  --texto: #1d2731;
+  --error: #c62828;
+  --ok: #2e7d32;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--texto);
+  background: var(--fondo);
+  line-height: 1.5;
+}
+
+/* ---------- Cabecera con logo y buscador ---------- */
+.barra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #fff;
+  border-bottom: 4px solid var(--naranja);
+}
+.barra__logo img { width: 170px; height: auto; display: block; }
+
+.busqueda { display: flex; }
+.busqueda input {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--azul);
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  width: 15rem;
+}
+.busqueda button {
+  border-radius: 0 20px 20px 0;
+  padding: 0.5rem 1rem;
+}
+
+/* Visible solo para lectores de pantalla */
+.oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* ---------- Tarjeta central ---------- */
+.tarjeta {
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(15, 61, 92, 0.12);
+}
+h1 { margin-top: 0; color: var(--azul); }
+.nota { margin-top: -0.5rem; color: #4a5866; }
+.req { color: var(--error); text-decoration: none; font-weight: bold; }
+
+/* ---------- Pasos (fieldset principal) ---------- */
+.paso {
+  border: none;
+  border-left: 4px solid var(--naranja);
+  margin: 0 0 1.75rem;
+  padding: 0 0 0 1rem;
+}
+.paso > legend {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--azul);
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+
+/* Grupos internos (servicio, extras, cuenta) */
+.opciones {
+  border: 1px dashed #b8c4ce;
+  border-radius: 8px;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem 0.75rem;
+}
+.opciones legend { font-weight: 600; padding: 0 0.3rem; }
+.opciones:disabled { background: #f3f5f7; color: #8b97a3; }
+
+/* ---------- Campos: una sola columna ---------- */
+label { display: block; margin-top: 0.9rem; font-weight: 600; }
+label.opcion { font-weight: normal; margin-top: 0.4rem; cursor: pointer; }
+
+input, select, textarea, button { font: inherit; }
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+select, textarea {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #9aa8b5;
+  border-radius: 6px;
+  background: #fff;
+}
+.busqueda input { width: 15rem; margin-top: 0; }
+input[type="radio"], input[type="checkbox"] { accent-color: var(--azul); margin-right: 0.4rem; }
+
+.ayuda { margin: 0.2rem 0 0; font-size: 0.85rem; color: #5b6875; }
+.fila { display: flex; justify-content: space-between; }
+
+/* ---------- Validación: solo tras interactuar con el campo ---------- */
+input:user-invalid, select:user-invalid, textarea:user-invalid {
+  border: 2px solid var(--error);
+  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
+}
+input:user-valid:not([type="radio"]):not([type="checkbox"]),
+select:user-valid, textarea:user-valid {
+  border: 2px solid var(--ok);
+}
+label.opcion:has(input:user-invalid) { color: var(--error); }
+
+/* ---------- Ampliación · honeypot fuera de la vista ---------- */
+/* No se usa display:none porque muchos bots ignoran los campos ocultos así */
+.trampa {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ---------- Botones ---------- */
+button {
+  background: var(--azul);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover { background: var(--naranja); }
+.enviar { width: 100%; padding: 0.85rem; font-size: 1.05rem; font-weight: 700; }
+
+:focus-visible { outline: 3px solid var(--naranja); outline-offset: 2px; }
+
+.pie { text-align: center; padding: 1rem; color: #5b6875; font-size: 0.9rem; }
+
+/* ---------- Móvil ---------- */
+@media (max-width: 600px) {
+  .tarjeta { margin: 0; border-radius: 0; padding: 1rem; }
+  .busqueda, .busqueda input { width: 100%; }
+}

@@ -1,0 +1,44 @@
+/* alta.css · Formulario de alta en la red del centro (tema verde azulado) */
+:root { --base: #0b5d5e; --claro: #e6f2f1; --acento: #f2b134; --mal: #b42318; --bien: #12805c; }
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Verdana, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.55; background: var(--claro); color: #13292a; }
+
+.cabecera { display: flex; align-items: center; gap: 1rem; padding: 1rem 2rem; background: var(--base); color: #fff; }
+.cabecera__icono { margin: 0; font-size: 2rem; background: var(--acento); color: var(--base); width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; }
+.cabecera__titulo { margin: 0; font-weight: bold; }
+.cabecera__sub { margin: 0; opacity: 0.85; font-size: 0.9rem; }
+
+.contenido { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+h1 { color: var(--base); margin-bottom: 0.3rem; }
+.ob { color: var(--mal); font-weight: bold; }
+
+fieldset { background: #fff; border: 2px solid var(--base); border-radius: 4px; margin: 0 0 1.5rem; padding: 1rem 1.25rem 1.25rem; min-width: 0;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem 1.5rem; }
+legend { background: var(--base); color: #fff; padding: 0.2rem 0.8rem; border-radius: 3px; font-weight: bold; }
+
+fieldset.grupo { border: 1px solid #a9c9c7; background: #f7fbfb; display: block; padding: 0.5rem 1rem 0.75rem; margin: 0; }
+fieldset.grupo legend { background: none; color: var(--base); padding: 0 0.3rem; }
+
+.campo { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.campo--ancho { grid-column: 1 / -1; }
+label { font-weight: bold; }
+label.op { font-weight: normal; display: block; margin: 0.3rem 0; cursor: pointer; }
+small { color: #4d6667; font-size: 0.82rem; }
+output { color: var(--base); }
+
+input, select, textarea, button { font: inherit; }
+input[type="text"], input[type="email"], input[type="date"], input[type="password"],
+input[type="number"], select, textarea { padding: 0.5rem; border: 1px solid #7fa3a1; border-radius: 3px; width: 100%; background: #fff; }
+input[type="radio"], input[type="checkbox"], input[type="range"] { accent-color: var(--base); }
+
+/* Validación solo tras interactuar */
+input:user-invalid, select:user-invalid, textarea:user-invalid { border: 2px solid var(--mal); background: #fff5f4; }
+input:user-valid:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select:user-valid { border: 2px solid var(--bien); }
+label.op:has(input:user-invalid) { color: var(--mal); }
+
+button { background: var(--acento); color: #13292a; border: none; border-radius: 3px; padding: 0.8rem 2.5rem; font-weight: bold; cursor: pointer; }
+button:hover { background: #e09a14; }
+:focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+
+@media (max-width: 640px) { fieldset { grid-template-columns: 1fr; } }

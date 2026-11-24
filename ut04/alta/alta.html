@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alta de usuario · Red del centro</title>
+  <link rel="stylesheet" href="css/alta.css">
+  <script src="js/alta.js" defer></script>
+</head>
+<body>
+  <header class="cabecera">
+    <p class="cabecera__icono" aria-hidden="true">⌘</p>
+    <div>
+      <p class="cabecera__titulo">Red del centro · Departamento de Informática</p>
+      <p class="cabecera__sub">Solicitud de cuenta para alumnado</p>
+    </div>
+  </header>
+
+  <main class="contenido">
+    <h1>Alta de usuario en la red</h1>
+    <p>Con esta cuenta podrás iniciar sesión en los equipos del aula, conectarte a la wifi y usar tu espacio en el servidor.
+       Los campos con <span class="ob">*</span> son obligatorios.</p>
+
+    <!--
+      MÉTODO: POST
+      - El formulario envía datos personales (nombre, NIA, fecha de nacimiento)
+        y una contraseña: con GET quedarían a la vista en la URL, en el historial
+        del navegador y en los registros del servidor.
+      - La petición CREA una cuenta nueva en el servidor; no es una consulta,
+        así que no debe repetirse al recargar ni poder guardarse como enlace.
+    -->
+    <form action="https://httpbin.org/post" method="post">
+
+      <!-- ========== 1. Alumno ========== -->
+      <fieldset>
+        <legend>1 · Datos del alumno</legend>
+
+        <div class="campo">
+          <label for="nombre">Nombre <span class="ob">*</span></label>
+          <input type="text" id="nombre" name="nombre" autocomplete="given-name"
+                 required minlength="2" maxlength="40">
+        </div>
+
+        <div class="campo">
+          <label for="apellidos">Apellidos <span class="ob">*</span></label>
+          <input type="text" id="apellidos" name="apellidos" autocomplete="family-name"
+                 required minlength="2" maxlength="60">
+        </div>
+
+        <div class="campo">
+          <label for="nia">NIA <span class="ob">*</span></label>
+          <input type="text" id="nia" name="nia" inputmode="numeric" aria-describedby="ayuda-nia"
+                 required pattern="[0-9]{8}"
+                 title="El NIA tiene exactamente 8 números">
+          <small id="ayuda-nia">8 números, aparece en tu carné de estudiante.</small>
+        </div>
+
+        <div class="campo">
+          <label for="nacimiento">Fecha de nacimiento <span class="ob">*</span></label>
+          <input type="date" id="nacimiento" name="nacimiento"
+                 required min="1960-01-01" max="2012-12-31" aria-describedby="ayuda-nac">
+          <small id="ayuda-nac">Entre 1960 y 2012.</small>
+        </div>
+
+        <div class="campo campo--ancho">
+          <label for="correo">Correo personal <span class="ob">*</span></label>
+          <input type="email" id="correo" name="correo" autocomplete="email" required
+                 aria-describedby="ayuda-correo">
+          <small id="ayuda-correo">Aquí te llegará la confirmación del alta.</small>
+        </div>
+      </fieldset>
+
+      <!-- ========== 2. Estudios ========== -->
+      <fieldset>
+        <legend>2 · Estudios</legend>
+
+        <div class="campo">
+          <label for="ciclo">Ciclo formativo <span class="ob">*</span></label>
+          <select id="ciclo" name="ciclo" required>
+            <option value="">— Elige tu ciclo —</option>
+            <option value="smr">SMR · Sistemas Microinformáticos y Redes</option>
+            <option value="asir">ASIR · Administración de Sistemas Informáticos en Red</option>
+            <option value="daw">DAW · Desarrollo de Aplicaciones Web</option>
+            <option value="dam">DAM · Desarrollo de Aplicaciones Multiplataforma</option>
+          </select>
+        </div>
+
+        <fieldset class="grupo">
+          <legend>Curso <span class="ob">*</span></legend>
+          <label class="op" for="curso-1"><input type="radio" id="curso-1" name="curso" value="1" required> 1.º</label>
+          <label class="op" for="curso-2"><input type="radio" id="curso-2" name="curso" value="2"> 2.º</label>
+        </fieldset>
+
+        <fieldset class="grupo">
+          <legend>Turno <span class="ob">*</span></legend>
+          <label class="op" for="turno-m"><input type="radio" id="turno-m" name="turno" value="manana" required> Mañana</label>
+          <label class="op" for="turno-t"><input type="radio" id="turno-t" name="turno" value="tarde"> Tarde</label>
+        </fieldset>
+      </fieldset>
+
+      <!-- ========== 3. Cuenta ========== -->
+      <fieldset>
+        <legend>3 · Tu cuenta</legend>
+
+        <div class="campo campo--ancho">
+          <label for="usuario">Nombre de usuario <span class="ob">*</span></label>
+          <input type="text" id="usuario" name="usuario" autocomplete="username" aria-describedby="ayuda-usuario"
+                 required pattern="[a-z][a-z0-9._]{3,15}"
+                 title="De 4 a 16 caracteres: minúsculas, números, punto o guion bajo, y empezando por letra">
+          <small id="ayuda-usuario">Ejemplo: agomez.asir · minúsculas sin tildes, empieza por letra.</small>
+        </div>
+
+        <div class="campo">
+          <label for="clave">Contraseña <span class="ob">*</span></label>
+          <input type="password" id="clave" name="clave" autocomplete="new-password" aria-describedby="ayuda-clave"
+                 required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{10,}"
+                 title="Mínimo 10 caracteres con mayúscula, minúscula y número">
+          <small id="ayuda-clave">10 o más caracteres, con mayúscula, minúscula y número.</small>
+        </div>
+
+        <div class="campo">
+          <label for="clave2">Repite la contraseña <span class="ob">*</span></label>
+          <input type="password" id="clave2" name="clave2" autocomplete="new-password" required>
+        </div>
+      </fieldset>
+
+      <!-- ========== 4. Servicios ========== -->
+      <fieldset>
+        <legend>4 · Servicios de red</legend>
+
+        <fieldset class="grupo campo--ancho">
+          <legend>Servicios que necesitas</legend>
+          <label class="op" for="srv-wifi"><input type="checkbox" id="srv-wifi" name="servicios" value="wifi" checked> Wifi del centro</label>
+          <label class="op" for="srv-vpn"><input type="checkbox" id="srv-vpn" name="servicios" value="vpn"> VPN para conectarte desde casa</label>
+          <label class="op" for="srv-nas"><input type="checkbox" id="srv-nas" name="servicios" value="carpeta"> Carpeta personal en el servidor</label>
+        </fieldset>
+
+        <div class="campo">
+          <label for="dispositivos">Dispositivos en la wifi</label>
+          <input type="number" id="dispositivos" name="dispositivos" value="1"
+                 min="1" max="3" step="1" aria-describedby="ayuda-disp">
+          <small id="ayuda-disp">Máximo 3 (portátil, móvil, tablet).</small>
+        </div>
+
+        <div class="campo">
+          <label for="cuota">Espacio en el servidor: <output id="cuota-valor" for="cuota">5</output> GB</label>
+          <input type="range" id="cuota" name="cuota" min="1" max="20" step="1" value="5">
+        </div>
+
+        <div class="campo campo--ancho">
+          <label for="motivo">Observaciones</label>
+          <textarea id="motivo" name="motivo" rows="3" maxlength="300"
+                    aria-describedby="ayuda-motivo"></textarea>
+          <small id="ayuda-motivo">Opcional. Máximo 300 caracteres.</small>
+        </div>
+
+        <label class="op campo--ancho" for="normas">
+          <input type="checkbox" id="normas" name="normas" value="acepto" required>
+          Acepto las normas de uso de la red del centro <span class="ob">*</span>
+        </label>
+      </fieldset>
+
+      <button type="submit">Solicitar alta</button>
+    </form>
+  </main>
+</body>
+</html>
