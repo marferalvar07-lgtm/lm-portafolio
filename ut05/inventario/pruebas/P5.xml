@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  inventario.xml · Dispositivos de red del aula 1.12 (1.º ASIR)
+  Red del aula: 10.20.5.0/24 · MAC ficticias (02 = administradas localmente)
+-->
+<inventario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../inventario.xsd"
+            aula="1.12" fecha="2026-11-24">
+
+  <dispositivo codigo="A112-RT01" clase="router">
+    <modelo marca="Netgate">pfSense SG-1100</modelo>
+    <red vlan="1">
+      <ipv4>10.20.5.1</ipv4>
+      <mac>02-4C-10-00-00-01</mac>
+    </red>
+    <ubicacion armario="A1" posicion="U4"/>
+    <compra fecha="2023-09-12" garantia="3"/>
+  </dispositivo>
+
+  <dispositivo codigo="A112-SW01" clase="switch">
+    <modelo marca="Cisco">CBS350-24T</modelo>
+    <red vlan="1">
+      <ipv4>10.20.5.2</ipv4>
+      <mac>02-4C-10-00-00-02</mac>
+    </red>
+    <ubicacion armario="A1" posicion="U2"/>
+    <compra fecha="2023-09-12" garantia="5"/>
+  </dispositivo>
+
+  <dispositivo codigo="A112-AP01" clase="punto-acceso">
+    <modelo marca="TP-Link">Omada EAP245</modelo>
+    <red vlan="5000">
+      <ipv4>10.20.5.3</ipv4>
+      <mac>02-4C-10-00-00-03</mac>
+    </red>
+    <ubicacion pared="Pared del fondo"/>
+    <compra fecha="2024-01-30" garantia="2"/>
+  </dispositivo>
+
+  <dispositivo codigo="A112-SV01" clase="servidor">
+    <modelo marca="HPE">ProLiant ML30 Gen11 · Windows Server (controlador de dominio)</modelo>
+    <red vlan="1">
+      <ipv4>10.20.5.10</ipv4>
+      <mac>02-4C-10-00-00-0A</mac>
+    </red>
+    <ubicacion armario="A1" posicion="U8"/>
+    <compra fecha="2024-10-07" garantia="3"/>
+  </dispositivo>
+
+  <dispositivo codigo="A112-SV02" clase="servidor">
+    <modelo marca="Lenovo">ThinkCentre M70q · Ubuntu Server (DHCP y web)</modelo>
+    <red vlan="1">
+      <ipv4>10.20.5.11</ipv4>
+      <mac>02-4C-10-00-00-0B</mac>
+    </red>
+    <ubicacion armario="A1" posicion="Bandeja"/>
+    <compra fecha="2025-02-18" garantia="1"/>
+  </dispositivo>
+
+  <dispositivo codigo="A112-PR01" clase="impresora">
+    <modelo marca="HP">LaserJet Pro 4002dw</modelo>
+    <red vlan="1">
+      <ipv4>10.20.5.50</ipv4>
+      <mac>02-4C-10-00-00-32</mac>
+    </red>
+    <ubicacion pared="Junto a la puerta"/>
+    <compra fecha="2022-11-03" garantia="2"/>
+  </dispositivo>
+
+</inventario>

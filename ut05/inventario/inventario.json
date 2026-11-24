@@ -1,0 +1,107 @@
+{
+  "aula": "1.12",
+  "fecha": "2026-11-24",
+  "red": "10.20.5.0/24",
+  "dispositivos": [
+    {
+      "codigo": "A112-RT01",
+      "clase": "router",
+      "marca": "Netgate",
+      "modelo": "pfSense SG-1100",
+      "vlan": 1,
+      "ipv4": "10.20.5.1",
+      "mac": "02-4C-10-00-00-01",
+      "ubicacion": {
+        "armario": "A1",
+        "posicion": "U4"
+      },
+      "compra": {
+        "fecha": "2023-09-12",
+        "garantiaAnios": 3
+      }
+    },
+    {
+      "codigo": "A112-SW01",
+      "clase": "switch",
+      "marca": "Cisco",
+      "modelo": "CBS350-24T",
+      "vlan": 1,
+      "ipv4": "10.20.5.2",
+      "mac": "02-4C-10-00-00-02",
+      "ubicacion": {
+        "armario": "A1",
+        "posicion": "U2"
+      },
+      "compra": {
+        "fecha": "2023-09-12",
+        "garantiaAnios": 5
+      }
+    },
+    {
+      "codigo": "A112-AP01",
+      "clase": "punto-acceso",
+      "marca": "TP-Link",
+      "modelo": "Omada EAP245",
+      "vlan": 20,
+      "ipv4": "10.20.5.3",
+      "mac": "02-4C-10-00-00-03",
+      "ubicacion": {
+        "pared": "Pared del fondo"
+      },
+      "compra": {
+        "fecha": "2024-01-30",
+        "garantiaAnios": 2
+      }
+    },
+    {
+      "codigo": "A112-SV01",
+      "clase": "servidor",
+      "marca": "HPE",
+      "modelo": "ProLiant ML30 Gen11 · Windows Server (controlador de dominio)",
+      "vlan": 1,
+      "ipv4": "10.20.5.10",
+      "mac": "02-4C-10-00-00-0A",
+      "ubicacion": {
+        "armario": "A1",
+        "posicion": "U8"
+      },
+      "compra": {
+        "fecha": "2024-10-07",
+        "garantiaAnios": 3
+      }
+    },
+    {
+      "codigo": "A112-SV02",
+      "clase": "servidor",
+      "marca": "Lenovo",
+      "modelo": "ThinkCentre M70q · Ubuntu Server (DHCP y web)",
+      "vlan": 1,
+      "ipv4": "10.20.5.11",
+      "mac": "02-4C-10-00-00-0B",
+      "ubicacion": {
+        "armario": "A1",
+        "posicion": "Bandeja"
+      },
+      "compra": {
+        "fecha": "2025-02-18",
+        "garantiaAnios": 1
+      }
+    },
+    {
+      "codigo": "A112-PR01",
+      "clase": "impresora",
+      "marca": "HP",
+      "modelo": "LaserJet Pro 4002dw",
+      "vlan": 1,
+      "ipv4": "10.20.5.50",
+      "mac": "02-4C-10-00-00-32",
+      "ubicacion": {
+        "pared": "Junto a la puerta"
+      },
+      "compra": {
+        "fecha": "2022-11-03",
+        "garantiaAnios": 2
+      }
+    }
+  ]
+}

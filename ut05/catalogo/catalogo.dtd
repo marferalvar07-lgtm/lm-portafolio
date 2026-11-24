@@ -1,0 +1,41 @@
+<!--
+  catalogo.dtd · DTD externa del catálogo de BiciRuta
+  Enlace en catalogo.xml: <!DOCTYPE catalogo SYSTEM "catalogo.dtd">
+  Símbolos: + uno o más · ? cero o uno · , orden obligatorio
+-->
+
+<!-- Raíz: al menos un producto -->
+<!ELEMENT catalogo (producto+)>
+<!ATTLIST catalogo
+    tienda       CDATA   #REQUIRED
+    actualizado  CDATA   #REQUIRED
+>
+
+<!-- Producto: nombre, precio y stock en ese orden; descripción y características opcionales -->
+<!ELEMENT producto (nombre, precio, stock, descripcion?, caracteristicas?)>
+<!ATTLIST producto
+    ref        ID                                    #REQUIRED
+    categoria  (bicicleta | accesorio | recambio)    #REQUIRED
+    proveedor  CDATA                                 #IMPLIED
+>
+
+<!-- Elementos de texto -->
+<!ELEMENT nombre       (#PCDATA)>
+<!ELEMENT stock        (#PCDATA)>
+<!ELEMENT descripcion  (#PCDATA)>
+<!ELEMENT talla        (#PCDATA)>
+
+<!-- Precio: moneda EUR o USD; si falta, el analizador pone EUR -->
+<!ELEMENT precio (#PCDATA)>
+<!ATTLIST precio
+    moneda  (EUR | USD)  "EUR"
+>
+
+<!-- Características: talla y peso, los dos opcionales -->
+<!ELEMENT caracteristicas (talla?, peso?)>
+
+<!-- Peso: la unidad es fija, siempre kg -->
+<!ELEMENT peso (#PCDATA)>
+<!ATTLIST peso
+    unidad  CDATA  #FIXED "kg"
+>

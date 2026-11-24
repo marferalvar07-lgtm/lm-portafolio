@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- inventario.xsd · Esquema del inventario de red del aula 1.12 -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Código: A112-, dos letras de tipo y dos dígitos (A112-SW01) -->
+  <xs:simpleType name="Codigo">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="A112-[A-Z]{2}\d{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- IPv4 que pertenece a la red del aula 10.20.5.0/24.
+       El último número va de 1 a 254 (0 es la red y 255 el broadcast) -->
+  <xs:simpleType name="IpAula">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="10\.20\.5\.([1-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-4])"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- MAC al estilo Windows: 6 pares hexadecimales en mayúscula separados por guiones -->
+  <xs:simpleType name="Mac">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9A-F]{2}-){5}[0-9A-F]{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Clase">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="router"/>
+      <xs:enumeration value="switch"/>
+      <xs:enumeration value="punto-acceso"/>
+      <xs:enumeration value="servidor"/>
+      <xs:enumeration value="impresora"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- VLAN válida: de 1 a 4094 -->
+  <xs:simpleType name="Vlan">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:maxInclusive value="4094"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Años de garantía: de 1 a 5 -->
+  <xs:simpleType name="Garantia">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:maxInclusive value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Modelo">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="marca" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="Red">
+    <xs:sequence>
+      <xs:element name="ipv4" type="IpAula"/>
+      <xs:element name="mac"  type="Mac"/>
+    </xs:sequence>
+    <xs:attribute name="vlan" type="Vlan" use="required"/>
+  </xs:complexType>
+
+  <!-- Ubicación: en un armario (con posición) o en una pared -->
+  <xs:complexType name="Ubicacion">
+    <xs:attribute name="armario"  type="xs:string"/>
+    <xs:attribute name="posicion" type="xs:string"/>
+    <xs:attribute name="pared"    type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="Compra">
+    <xs:attribute name="fecha"    type="xs:date"   use="required"/>
+    <xs:attribute name="garantia" type="Garantia"  use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Dispositivo">
+    <xs:sequence>
+      <xs:element name="modelo"    type="Modelo"/>
+      <xs:element name="red"       type="Red"/>
+      <xs:element name="ubicacion" type="Ubicacion"/>
+      <xs:element name="compra"    type="Compra"/>
+    </xs:sequence>
+    <xs:attribute name="codigo" type="Codigo" use="required"/>
+    <xs:attribute name="clase"  type="Clase"  use="required"/>
+  </xs:complexType>
+
+  <xs:element name="inventario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="dispositivo" type="Dispositivo" minOccurs="5" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="aula"  type="xs:string" use="required"/>
+      <xs:attribute name="fecha" type="xs:date"   use="required"/>
+    </xs:complexType>
+    <!-- Nada repetido: ni código, ni IP, ni MAC -->
+    <xs:unique name="codigoUnico"><xs:selector xpath="dispositivo"/><xs:field xpath="@codigo"/></xs:unique>
+    <xs:unique name="ipUnica"><xs:selector xpath="dispositivo/red"/><xs:field xpath="ipv4"/></xs:unique>
+    <xs:unique name="macUnica"><xs:selector xpath="dispositivo/red"/><xs:field xpath="mac"/></xs:unique>
+  </xs:element>
+</xs:schema>
